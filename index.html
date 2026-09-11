@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ゲスト全員がカメラマン</title>
+<meta name="description" content="結婚式のゲスト参加カメラ。QRを1枚置くだけで、ゲストのスマホが24枚撮りの使い捨てカメラになります。現在開発中。事前登録を受け付けています。">
+<meta property="og:title" content="ゲスト全員がカメラマン">
+<meta property="og:description" content="QRを1枚置くだけ。ゲストのスマホが24枚撮りの使い捨てカメラになります。開発中につき事前登録受付中。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@400;600;900&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+:root{
+  --paper:#FAF6F4; --paper-2:#F2EBE8; --ink:#1A1519; --ink-2:#4A424A;
+  --muted:#8C8289; --rose:#C2185B; --rose-soft:#F7E4EC; --film:#1F6F5C;
+  --line:#E4D9D6; --field:#FFFFFF;
+  --shadow:0 1px 2px rgba(26,21,25,.05), 0 8px 24px -12px rgba(26,21,25,.18);
+  --display:"Zen Old Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#151114; --paper-2:#1F1A1F; --ink:#F6EFF2; --ink-2:#C6BAC0;
+    --muted:#968A91; --rose:#F06292; --rose-soft:#3A1B28; --film:#5FB59A;
+    --line:#332A31; --field:#241E24;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#151114; --paper-2:#1F1A1F; --ink:#F6EFF2; --ink-2:#C6BAC0;
+  --muted:#968A91; --rose:#F06292; --rose-soft:#3A1B28; --film:#5FB59A;
+  --line:#332A31; --field:#241E24;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -12px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--body); font-size:16px; line-height:1.85; -webkit-font-smoothing:antialiased}
+img{max-width:100%}
+.wrap{max-width:620px; margin:0 auto; padding:0 22px}
+section{padding:clamp(44px,7vw,68px) 0; border-top:1px solid var(--line)}
+section:first-of-type{border-top:none}
+
+.opener{padding-top:clamp(34px,6vw,52px)}
+.eyebrow{font-size:11.5px; letter-spacing:.16em; color:var(--film); font-weight:700; margin:0 0 18px}
+h1{font-family:var(--display); font-weight:900; font-size:clamp(30px,7.2vw,45px);
+  line-height:1.42; letter-spacing:.01em; margin:0; text-wrap:balance}
+h1 .em{color:var(--rose)}
+.lede{margin:22px 0 0; color:var(--ink-2); font-size:16.5px; line-height:1.95}
+.status{display:inline-flex; align-items:center; gap:9px; margin-top:24px;
+  padding:8px 15px 8px 12px; background:var(--rose-soft); color:var(--rose);
+  border-radius:999px; font-size:13px; font-weight:700}
+.status::before{content:""; width:7px; height:7px; border-radius:50%; background:currentColor; flex:none}
+
+.register{margin-top:32px; padding:26px 24px; background:var(--paper-2);
+  border-radius:4px; box-shadow:var(--shadow)}
+.register h2{font-family:var(--display); font-size:20px; font-weight:600; margin:0 0 8px; line-height:1.6}
+.register .intro{margin:0 0 22px; font-size:14.5px; color:var(--ink-2); line-height:1.8}
+.field{display:flex; flex-direction:column; gap:7px; margin-bottom:18px}
+.field > label{font-size:13.5px; font-weight:700}
+.field .req{color:var(--rose); font-size:11.5px; margin-left:6px; font-weight:700}
+.field .hint{font-size:12.5px; color:var(--muted); line-height:1.65; margin:-2px 0 0}
+input[type=email], input[type=text], select, textarea{
+  font-family:inherit; font-size:16px; color:var(--ink); background:var(--field);
+  border:1px solid var(--line); border-radius:3px; padding:12px 13px; width:100%;
+  line-height:1.6; -webkit-appearance:none; appearance:none}
+select{background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);
+  background-position:calc(100% - 19px) 50%, calc(100% - 14px) 50%;
+  background-size:5px 5px, 5px 5px; background-repeat:no-repeat; padding-right:38px}
+textarea{min-height:84px; resize:vertical}
+input:focus, select:focus, textarea:focus{outline:2px solid var(--rose); outline-offset:1px; border-color:transparent}
+.cta{display:block; width:100%; text-align:center; text-decoration:none; border:none;
+  background:var(--rose); color:#fff; font-family:inherit; font-weight:700; font-size:16px;
+  padding:17px 20px; border-radius:3px; letter-spacing:.02em; cursor:pointer;
+  transition:filter .15s ease, transform .15s ease}
+.cta:hover{filter:brightness(1.07)}
+.cta:active{transform:translateY(1px)}
+.cta:focus-visible{outline:2px solid var(--ink); outline-offset:3px}
+.cta[disabled]{opacity:.55; cursor:default}
+.fineprint{margin:14px 0 0; font-size:12.5px; color:var(--muted); text-align:center; line-height:1.75}
+.fineprint a{color:var(--muted)}
+.done{text-align:center; padding:14px 0 4px}
+.done .mark{font-family:var(--display); font-size:34px; color:var(--film); line-height:1; margin-bottom:14px}
+.done h3{font-family:var(--display); font-size:19px; font-weight:600; margin:0 0 10px}
+.done p{margin:0; font-size:14.5px; color:var(--ink-2); line-height:1.85}
+
+h2.sec{font-family:var(--display); font-weight:600; font-size:clamp(21px,4.4vw,26px);
+  line-height:1.6; margin:0 0 8px; text-wrap:balance}
+.sec-note{margin:0 0 32px; color:var(--muted); font-size:14px}
+
+.step{display:grid; grid-template-columns:56px 1fr; gap:18px; padding:22px 0;
+  border-bottom:1px dashed var(--line)}
+.step:last-child{border-bottom:none}
+.frame{font-family:var(--display); font-variant-numeric:tabular-nums; font-size:13px;
+  font-weight:600; color:var(--film); border:1px solid var(--film); border-radius:2px;
+  height:28px; display:flex; align-items:center; justify-content:center; letter-spacing:.06em}
+.step h3{margin:0 0 5px; font-size:16.5px; font-weight:700; line-height:1.65}
+.step p{margin:0; color:var(--ink-2); font-size:14.5px; line-height:1.85}
+
+.diff{display:flex; flex-direction:column; gap:18px}
+.diff-item{padding:20px 22px; border-left:3px solid var(--rose); background:var(--paper-2); border-radius:0 3px 3px 0}
+.diff-item h3{margin:0 0 6px; font-size:16px; font-weight:700; display:flex;
+  align-items:baseline; gap:10px; flex-wrap:wrap}
+.tag{font-size:11px; font-weight:700; letter-spacing:.08em; color:var(--rose);
+  background:var(--rose-soft); padding:3px 9px; border-radius:2px; white-space:nowrap}
+.diff-item p{margin:0; font-size:14.5px; color:var(--ink-2); line-height:1.85}
+
+dl{margin:0; display:flex; flex-direction:column; gap:22px}
+dt{font-weight:700; font-size:15.5px; margin-bottom:5px; line-height:1.7}
+dd{margin:0; color:var(--ink-2); font-size:14.5px; line-height:1.85}
+
+.closing{text-align:center}
+.closing .quiet{font-family:var(--display); font-size:clamp(18px,4vw,22px);
+  line-height:1.85; margin:0 0 26px; color:var(--ink)}
+.closing .cta{max-width:340px; margin:0 auto}
+footer{padding:28px 0 44px; border-top:1px solid var(--line); font-size:12.5px;
+  color:var(--muted); text-align:center; line-height:1.9}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="opener">
+    <p class="eyebrow">結婚式のゲスト参加カメラ</p>
+    <h1>その日の写真は、<br><span class="em">ゲストの数だけ</span>ある。</h1>
+    <p class="lede">
+      入口にQRを1枚置くだけ。読み取ったゲストのスマホが、そのまま24枚撮りの使い捨てカメラになります。
+      新郎新婦が見ていない時間の写真が、あとからひとつに集まります。
+    </p>
+    <div class="status">ただいま開発中です</div>
+
+    <div class="register" id="register">
+      <h2>公開したら、一番にお知らせします</h2>
+      <p class="intro">ご登録の方には、公開のタイミングと使い方をメールでお送りします。30秒ほどで終わります。</p>
+
+      <form id="form" action="https://docs.google.com/forms/d/e/1FAIpQLSeNcGglnfqVMv2YvtbBHqIgRzhHU1cs3ffYBcoKdHgCs0thhg/formResponse" method="POST" target="sink">
+        <div class="field">
+          <label for="q_mail">メールアドレス<span class="req">必須</span></label>
+          <input type="email" id="q_mail" name="entry.2059212512" required autocomplete="email" placeholder="you@example.com">
+          <p class="hint">お知らせの送り先です。ここ以外の目的では使いません。</p>
+        </div>
+        <div class="field">
+          <label for="q_name">お名前</label>
+          <input type="text" id="q_name" name="entry.972567489" autocomplete="name" placeholder="ニックネームでも大丈夫です">
+        </div>
+        <div class="field">
+          <label for="q_when">結婚式の予定はいつ頃ですか<span class="req">必須</span></label>
+          <select id="q_when" name="entry.127791430" required>
+            <option value="" selected disabled>選んでください</option>
+            <option>3ヶ月以内</option><option>半年以内</option><option>1年以内</option>
+            <option>1年より先</option><option>まだ決まっていない</option><option>式はもう終わった</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="q_src">どこでこのアプリを知りましたか</label>
+          <select id="q_src" name="entry.789322737">
+            <option value="" selected>選んでください</option>
+            <option>TikTok</option><option>Instagram</option><option>友人・知人から</option><option>その他</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="q_req">こんな機能がほしい、という要望</label>
+          <textarea id="q_req" name="entry.2034343101" placeholder="開発の参考にします"></textarea>
+        </div>
+        <button type="submit" class="cta" id="submit">事前登録する</button>
+      </form>
+
+      <div class="done" id="done" hidden>
+        <div class="mark">✓</div>
+        <h3>登録を受け付けました</h3>
+        <p>公開のタイミングが決まりましたら、ご登録のアドレスにお送りします。<br>ありがとうございます。</p>
+      </div>
+
+      <p class="fineprint" id="fineprint">お知らせ以外の目的では使いません。いつでも配信を止められます。<br>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeNcGglnfqVMv2YvtbBHqIgRzhHU1cs3ffYBcoKdHgCs0thhg/viewform" target="_blank" rel="noopener">うまく送信できない場合はこちらから</a></p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">当日、こう動きます</h2>
+    <p class="sec-note">新郎新婦が準備することは、QRを置くことだけです</p>
+    <div class="step">
+      <div class="frame">01</div>
+      <div>
+        <h3>入口にQRを置く</h3>
+        <p>受付やテーブルに1枚。ゲストへの説明も、配りものも要りません。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="frame">02</div>
+      <div>
+        <h3>ゲストが読み取って、撮る</h3>
+        <p>画面の上に「残り 11 ｜ 24」と出ます。撮った分だけ減っていくので、1枚を選んで撮るようになります。撮り放題にはしていません。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="frame">03</div>
+      <div>
+        <h3>ひとつのアルバムに集まる</h3>
+        <p>受付、挙式、披露宴。ゲスト全員の写真が1か所に集まります。誰が何を見ていたのかが、そのまま残ります。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">ほかの共有アルバムと違うところ</h2>
+    <p class="sec-note">写真が集まるだけでは終わりません</p>
+    <div class="diff">
+      <div class="diff-item">
+        <h3>時間で並ぶ<span class="tag">タイムライン</span></h3>
+        <p>撮られた時刻ごとに区切って並びます。「11:30 受付・ウェルカムスペース」というふうに、その日をもう一度たどれます。フォルダを開いて探す必要がありません。</p>
+      </div>
+      <div class="diff-item">
+        <h3>写真に言葉が残る<span class="tag">メッセージ</span></h3>
+        <p>1枚ずつに、いいねとメッセージを付けられます。その場では言えなかったことが、写真の下に残ります。集まるのは写真だけではありません。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec">よくある質問</h2>
+    <dl>
+      <div>
+        <dt>いつ使えるようになりますか</dt>
+        <dd>開発中のため、公開日はまだお伝えできません。決まり次第、ご登録の方へ最初にお知らせします。</dd>
+      </div>
+      <div>
+        <dt>料金はいくらですか</dt>
+        <dd>検討中です。ゲストの人数で変わる形を考えています。決まったらお知らせに含めます。</dd>
+      </div>
+      <div>
+        <dt>Androidでも使えますか</dt>
+        <dd>対応を検討しています。決まり次第お知らせします。</dd>
+      </div>
+      <div>
+        <dt>写真は誰が見られますか</dt>
+        <dd>そのアルバムに参加した人だけです。QRを読み取っていない人には見えません。</dd>
+      </div>
+      <div>
+        <dt>式まで時間がないのですが</dt>
+        <dd>間に合わない可能性が高いです。ただ、二次会や同窓会でも使えるものにする予定なので、よければご登録ください。</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="closing">
+    <p class="quiet">当日いちばん写真を撮らないのは、<br>新郎新婦だけです。</p>
+    <a class="cta" href="#register">事前登録する</a>
+    <p class="fineprint">30秒で終わります</p>
+  </section>
+
+  <footer>
+    結婚式のゲスト参加カメラ<br>
+    開発中のため、記載の内容は変わることがあります
+  </footer>
+</div>
+
+<iframe name="sink" id="sink" style="display:none" title="送信"></iframe>
+<script>
+(function(){
+  var form=document.getElementById('form'), sink=document.getElementById('sink'),
+      btn=document.getElementById('submit'), done=document.getElementById('done'),
+      fine=document.getElementById('fineprint'), sent=false;
+  form.addEventListener('submit',function(){
+    sent=true; btn.disabled=true; btn.textContent='送信中…';
+    setTimeout(finish,4000);
+  });
+  sink.addEventListener('load',function(){ if(sent) finish(); });
+  function finish(){
+    if(!sent) return; sent=false;
+    form.hidden=true; done.hidden=false;
+    fine.innerHTML='ご登録ありがとうございます。';
+    done.scrollIntoView({block:'center',behavior:'smooth'});
+  }
+})();
+</script>
+</body>
+</html>
