@@ -265,6 +265,20 @@ footer{padding:28px 0 44px; border-top:1px solid var(--line); font-size:12.5px;
   var form=document.getElementById('form'), sink=document.getElementById('sink'),
       btn=document.getElementById('submit'), done=document.getElementById('done'),
       fine=document.getElementById('fineprint'), sent=false;
+
+  // 流入元の自動記録：?src=tiktok / ?src=instagram を「どこで知りましたか」に反映する。
+  // 外部の計測サービスは使わない。既存のGoogleフォームの回答としてそのまま残る。
+  // 本人が選び直せるよう、選択肢は固定しない（disabledにしない）。
+  try{
+    var src=(new URLSearchParams(location.search).get('src')||'').toLowerCase(),
+        map={tiktok:'TikTok', tt:'TikTok', instagram:'Instagram', ig:'Instagram'},
+        hit=map[src], sel=document.getElementById('q_src');
+    if(hit && sel){
+      for(var i=0;i<sel.options.length;i++){
+        if(sel.options[i].text===hit){ sel.selectedIndex=i; break; }
+      }
+    }
+  }catch(e){ /* URLSearchParams が無い環境でもフォーム本体は動かす */ }
   form.addEventListener('submit',function(){
     sent=true; btn.disabled=true; btn.textContent='送信中…';
     setTimeout(finish,4000);
